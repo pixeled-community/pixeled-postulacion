@@ -146,7 +146,6 @@
       <div class="section-title">Compromisos y Envío <span class="section-num">5 / 5</span></div>
       <div class="grid-1">
         <div class="field" id="f-ooc"><label>¿Qué entiendes por "romper el personaje" (OOC)? <span>*</span></label><textarea id="ooc" placeholder="Explica con tus propias palabras..." maxlength="400" oninput="updateCount('ooc','ooc-count',400)"></textarea><div style="display:flex;justify-content:space-between"><span class="err-msg">Campo obligatorio</span><span class="char-count" id="ooc-count">0 / 400</span></div></div>
-        <div class="field" id="f-me-do"><label>¿Para qué se usan /me y /do? Da un ejemplo de cada uno <span>*</span></label><textarea id="me-do" placeholder="Ej: /me saca la cartera lentamente — /do La puerta está entreabierta..." maxlength="400" oninput="updateCount('me-do','medo-count',400)"></textarea><div style="display:flex;justify-content:space-between"><span class="err-msg">Campo obligatorio</span><span class="char-count" id="medo-count">0 / 400</span></div></div>
         <div class="field" id="f-checks"><label>Confirmo que <span>*</span></label>
           <div class="chk-list">
             <label class="chk-item" id="ci1"><input type="checkbox" id="chk1" onchange="toggleChk('ci1')"> He leído y acepto todas las normas del servidor</label>
@@ -180,7 +179,7 @@ const questions=[
   {q:'¿Para qué sirve el comando /me?',opts:['Enviar un mensaje privado','Describir una acción física de tu personaje','Reportar a un jugador','Ver tu perfil'],correct:1,exp:'/me describe una acción visible para los cercanos. Ej: /me saca lentamente la cartera del bolsillo.'},
   {q:'¿Para qué sirve el comando /do?',opts:['Hacer una acción de combate','Describir el entorno o detalles de la escena','Cambiar de personaje','Llamar a un taxi'],correct:1,exp:'/do describe detalles del entorno. Ej: /do La puerta está oxidada y apenas se puede abrir.'},
   {q:'¿Qué significa el Powergaming?',opts:['Jugar muchas horas para subir de nivel','Forzar acciones sobre otros sin darles oportunidad de reaccionar','Usar builds muy potentes','Tener mucho dinero en el juego'],correct:1,exp:'El Powergaming es forzar situaciones sobre otros sin permitir reacción. Ej: /me le roba sin esperar respuesta.'},
-  {q:'¿Qué es el Fear RP?',opts:['Un servidor de terror','La obligación de que tu personaje sienta miedo ante peligro real','Un comando para rendirse','Una norma que prohíbe armas'],correct:1,exp:'El Fear RP obliga a reaccionar con miedo ante peligro real. Si alguien te apunta, tu personaje no puede ignorarlo.'},
+  {q:'¿Qué es el Rol de Miedo?',opts:['Un servidor de terror','La obligación de que tu personaje sienta miedo ante peligro real','Un comando para rendirse','Una norma que prohíbe armas'],correct:1,exp:'El Rol de Miedo obliga a reaccionar con miedo ante peligro real. Si alguien te apunta, tu personaje no puede ignorarlo.'},
   {q:'¿Qué es el VDM (Vehicle Death Match)?',opts:['Un modo de carreras','Usar un vehículo para atropellar jugadores sin motivo de RP','Un fallo técnico','Una misión de conducción'],correct:1,exp:'El VDM es atropellar intencionadamente a jugadores con un vehículo sin razón de RP válida.'},
   {q:'¿Qué es el Revenge Kill (RK)?',opts:['Matar a quien te mató antes sin haber olvidado ese evento','Un contrato de asesinato','Recuperar objetos al morir','Pedir ayuda al staff tras un PK'],correct:0,exp:'El RK es volver a por quien te mató. Al morir, tu personaje olvida lo ocurrido en ese evento.'},
   {q:'¿Cuándo está permitido romper el personaje (ir OOC)?',opts:['Siempre que quieras','Nunca bajo ningún concepto','Solo en situaciones técnicas urgentes usando los canales correctos','Cuando no sabes cómo continuar el RP'],correct:2,exp:'Solo se puede ir OOC en casos técnicos urgentes (bug, crash) usando /ooc o Discord. Nunca para evitar RP.'}
@@ -213,14 +212,9 @@ function checkQuiz(){
     if(v===q.correct){score++;fb.textContent='✓ Correcto — '+q.exp;fb.className='quiz-feedback correct';}
     else{fb.textContent='✗ Incorrecto — '+q.exp;fb.className='quiz-feedback wrong';}
   });
-  if(!all){alert('Responde todas las preguntas antes de comprobar.');return;}
+  if(!all){alert('Responde todas las preguntas antes de continuar.');return;}
   quizScore=score;quizChecked=true;
-  const sb=document.getElementById('score-bar'),sn=document.getElementById('score-num'),sm=document.getElementById('score-msg'),ss=document.getElementById('score-sub'),btn=document.getElementById('btn-check-quiz');
-  sb.style.display='flex';sn.textContent=score+'/10';
-  // El jugador solo ve que puede continuar, sin saber si aprobó o suspendió
-  sn.style.color='var(--purple)';
-  sm.textContent='Test completado. Puedes continuar.';
-  ss.textContent='El staff revisará tus respuestas junto con tu postulación.';
+  const btn=document.getElementById('btn-check-quiz');
   btn.textContent='CONTINUAR →';
   btn.onclick=()=>nextStep(4);
 }
@@ -249,7 +243,7 @@ function validateStep(s){
   if(s===1){req('f-nick',!document.getElementById('nick').value.trim());req('f-discord',!document.getElementById('discord').value.trim());const e=parseInt(document.getElementById('edad').value);req('f-edad',!e||e<14);}
   if(s===2){req('f-exp',!document.getElementById('exp').value);req('f-conoce',!document.getElementById('conoce').value);}
   if(s===3){req('f-nombre-per',!document.getElementById('nombre-per').value.trim());req('f-backstory',document.getElementById('backstory').value.trim().length<100);}
-  if(s===5){req('f-ooc',!document.getElementById('ooc').value.trim());req('f-me-do',!document.getElementById('me-do').value.trim());const all=['chk1','chk2','chk3','chk4','chk5'].every(id=>document.getElementById(id).checked);req('f-checks',!all);}
+  if(s===5){req('f-ooc',!document.getElementById('ooc').value.trim());const all=['chk1','chk2','chk3','chk4','chk5'].every(id=>document.getElementById(id).checked);req('f-checks',!all);}
   return ok;
 }
 
@@ -286,7 +280,6 @@ function buildEmbed(){
         {name:'📖 Backstory',value:document.getElementById('backstory').value.trim().substring(0,1024),inline:false},
         {name:`🎯 Respuestas del Test (${quizScore}/10)`,value:ans.substring(0,1024),inline:false},
         {name:'❓ OOC / Romper el personaje',value:document.getElementById('ooc').value.trim().substring(0,500),inline:false},
-        {name:'⌨️ /me y /do',value:document.getElementById('me-do').value.trim().substring(0,500),inline:false},
         {name:'✅ Compromisos aceptados',value:'✔ Normas del servidor\n✔ Uso de micrófono\n✔ IC/OOC\n✔ Sin MG/PG/RDM/VDM/RK\n✔ Respeto',inline:false},
       ],
       footer:{text:`Pixeled Community · ${new Date().toLocaleString('es-ES')}`},
