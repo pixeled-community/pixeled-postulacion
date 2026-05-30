@@ -6,20 +6,15 @@
 <title>Postulación - Pixeled Community</title>
 <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --purple:#7F77DD;--purple-d:#534AB7;--purple-bg:#1E1B3A;
-    --bg:#0D0D0D;--surface:#151515;--surface2:#1E1E1E;--border:#2A2A2A;
-    --text:#F0F0F0;--text-muted:#888;--success:#3DB87A;--error:#E24B4A;
-  }
+  :root{--purple:#7F77DD;--purple-d:#534AB7;--purple-bg:#1E1B3A;--bg:#0D0D0D;--surface:#151515;--surface2:#1E1E1E;--border:#2A2A2A;--text:#F0F0F0;--text-muted:#888;--success:#3DB87A;--error:#E24B4A;}
   *{box-sizing:border-box;margin:0;padding:0;}
   body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;min-height:100vh;padding:2rem 1rem;}
   body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 20%,rgba(127,119,221,.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(83,74,183,.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
   .wrap{max-width:700px;margin:0 auto;position:relative;z-index:1;}
   .header{text-align:center;margin-bottom:2.5rem;}
-  .logo{width:68px;height:68px;background:var(--purple-d);border-radius:18px;display:inline-flex;align-items:center;justify-content:center;font-family:'Rajdhani',sans-serif;font-size:24px;font-weight:700;color:#fff;margin-bottom:1rem;box-shadow:0 0 40px rgba(127,119,221,.3);}
+  .logo-img{width:96px;height:96px;object-fit:contain;margin-bottom:1rem;image-rendering:pixelated;}
   .title{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;letter-spacing:3px;background:linear-gradient(135deg,#fff 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
   .subtitle{font-size:14px;color:var(--text-muted);margin-top:4px;}
-  .badge{display:inline-block;background:var(--purple-bg);border:1px solid var(--purple-d);color:var(--purple);font-size:11px;font-weight:700;padding:4px 14px;border-radius:20px;margin-top:10px;letter-spacing:2px;}
   .progress-wrap{margin-bottom:2rem;}
   .progress-steps{display:flex;justify-content:space-between;margin-bottom:8px;}
   .step-label{font-size:11px;color:var(--text-muted);font-weight:600;letter-spacing:.5px;}
@@ -92,10 +87,9 @@
 <body>
 <div class="wrap">
   <div class="header">
-    <div class="logo">PC</div>
+    <img src="./myLogo.png" alt="Pixeled Community" class="logo-img"><br>
     <div class="title">PIXELED COMMUNITY</div>
     <div class="subtitle">Formulario de postulación al servidor</div>
-    <div class="badge">SEMISERIO · ROLEPLAY · FIVEM</div>
   </div>
   <div class="progress-wrap">
     <div class="progress-steps">
@@ -142,7 +136,7 @@
     <!-- PASO 4: TEST -->
     <div class="card" id="step-4">
       <div class="section-title">Test de Normas RP <span class="section-num">4 / 5</span></div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.6;">Responde las 10 preguntas sobre las normas básicas del roleplay. <strong style="color:var(--purple)">Mínimo 7/10 correctas</strong> para continuar.</p>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.6;">Responde las 10 preguntas sobre las normas básicas del roleplay antes de continuar.</p>
       <div id="quiz-container"></div>
       <div class="score-bar" id="score-bar" style="display:none"><div class="score-num" id="score-num">0/10</div><div class="score-label"><strong id="score-msg"></strong><br><span id="score-sub"></span></div></div>
       <div class="nav-btns"><button class="btn-back" onclick="prevStep(4)">← VOLVER</button><button class="btn-next" id="btn-check-quiz" onclick="checkQuiz()">COMPROBAR RESPUESTAS</button></div>
@@ -171,12 +165,14 @@
   </div>
   <div class="success-screen" id="success-screen">
     <div class="success-icon">✓</div>
-    <h2>¡Postulación enviada!</h2>
-    <p>Gracias por querer unirte a <strong>Pixeled Community</strong>.<br>Revisaremos tu solicitud en las próximas <strong>24-72 horas</strong>.<br>Recibirás una respuesta por Discord.</p>
+    <h2>¡Postulación recibida!</h2>
+    <p>Gracias por querer unirte a <strong>Pixeled Community</strong>.<br>Revisaremos tu solicitud y recibirás una respuesta<br>en las próximas <strong>24-72 horas</strong> por Discord.</p>
   </div>
 </div>
 <script>
-const WEBHOOK_URL='https://discord.com/api/webhooks/1510279318465413282/PVaTIQVZVZWnV7CPrB_6b8vRxpeA1K4xOPeKEHu3OeEaWouEaetJeHF5yh4-Jm6NUDHL';
+// ⚠️ REEMPLAZA CON TU WEBHOOK DE DISCORD
+const WEBHOOK_URL='AQUI_TU_WEBHOOK';
+
 const questions=[
   {q:'¿Qué significa IC (In Character)?',opts:['Hablar por Discord durante el juego','Todo lo que hace y dice tu personaje dentro del roleplay','Un comando para hablar con el staff','Salir del juego temporalmente'],correct:1,exp:'IC es todo lo que ocurre dentro del roleplay: acciones, palabras y decisiones de tu personaje.'},
   {q:'¿Qué es el Metagaming (MG)?',opts:['Usar información de fuera del juego (Discord, streams...) dentro del RP','Jugar muchas horas seguidas','Usar mods externos','Hablar por voz con otros jugadores'],correct:0,exp:'El Metagaming es usar información real (OOC) para beneficiarse en el RP. Está estrictamente prohibido.'},
@@ -184,10 +180,10 @@ const questions=[
   {q:'¿Para qué sirve el comando /me?',opts:['Enviar un mensaje privado','Describir una acción física de tu personaje','Reportar a un jugador','Ver tu perfil'],correct:1,exp:'/me describe una acción visible para los cercanos. Ej: /me saca lentamente la cartera del bolsillo.'},
   {q:'¿Para qué sirve el comando /do?',opts:['Hacer una acción de combate','Describir el entorno o detalles de la escena','Cambiar de personaje','Llamar a un taxi'],correct:1,exp:'/do describe detalles del entorno. Ej: /do La puerta está oxidada y apenas se puede abrir.'},
   {q:'¿Qué significa el Powergaming?',opts:['Jugar muchas horas para subir de nivel','Forzar acciones sobre otros sin darles oportunidad de reaccionar','Usar builds muy potentes','Tener mucho dinero en el juego'],correct:1,exp:'El Powergaming es forzar situaciones sobre otros sin permitir reacción. Ej: /me le roba sin esperar respuesta.'},
-  {q:'¿Qué es el Fear RP?',opts:['Un servidor de terror','La obligación de que tu personaje sienta miedo en situaciones de peligro real','Un comando para rendirse','Una norma que prohíbe armas'],correct:1,exp:'El Fear RP obliga a reaccionar con miedo ante peligro real. Si alguien te apunta, tu personaje no puede ignorarlo.'},
+  {q:'¿Qué es el Fear RP?',opts:['Un servidor de terror','La obligación de que tu personaje sienta miedo ante peligro real','Un comando para rendirse','Una norma que prohíbe armas'],correct:1,exp:'El Fear RP obliga a reaccionar con miedo ante peligro real. Si alguien te apunta, tu personaje no puede ignorarlo.'},
   {q:'¿Qué es el VDM (Vehicle Death Match)?',opts:['Un modo de carreras','Usar un vehículo para atropellar jugadores sin motivo de RP','Un fallo técnico','Una misión de conducción'],correct:1,exp:'El VDM es atropellar intencionadamente a jugadores con un vehículo sin razón de RP válida.'},
-  {q:'¿Qué es el Revenge Kill (RK)?',opts:['Matar a quien te mató antes sin haber olvidado ese evento','Un contrato de asesinato','Recuperar objetos al morir','Pedir ayuda al staff tras un PK'],correct:0,exp:'El RK es volver a por quien te mató. Al morir o perder la consciencia, tu personaje olvida lo ocurrido.'},
-  {q:'¿Cuándo está permitido romper el personaje (ir OOC)?',opts:['Siempre que quieras','Nunca bajo ningún concepto','Solo en situaciones técnicas urgentes (bugs, crashes) usando los canales correctos','Cuando no sabes cómo continuar el RP'],correct:2,exp:'Solo se puede ir OOC en casos técnicos urgentes usando /ooc o Discord. Nunca para evitar situaciones de RP.'}
+  {q:'¿Qué es el Revenge Kill (RK)?',opts:['Matar a quien te mató antes sin haber olvidado ese evento','Un contrato de asesinato','Recuperar objetos al morir','Pedir ayuda al staff tras un PK'],correct:0,exp:'El RK es volver a por quien te mató. Al morir, tu personaje olvida lo ocurrido en ese evento.'},
+  {q:'¿Cuándo está permitido romper el personaje (ir OOC)?',opts:['Siempre que quieras','Nunca bajo ningún concepto','Solo en situaciones técnicas urgentes usando los canales correctos','Cuando no sabes cómo continuar el RP'],correct:2,exp:'Solo se puede ir OOC en casos técnicos urgentes (bug, crash) usando /ooc o Discord. Nunca para evitar RP.'}
 ];
 
 function renderQuiz(){
@@ -221,17 +217,12 @@ function checkQuiz(){
   quizScore=score;quizChecked=true;
   const sb=document.getElementById('score-bar'),sn=document.getElementById('score-num'),sm=document.getElementById('score-msg'),ss=document.getElementById('score-sub'),btn=document.getElementById('btn-check-quiz');
   sb.style.display='flex';sn.textContent=score+'/10';
-  if(score>=7){sn.style.color='var(--success)';sm.textContent='¡Aprobado! Puedes continuar.';ss.textContent=`Has acertado ${score} de 10 preguntas.`;btn.textContent='CONTINUAR →';btn.onclick=()=>nextStep(4);}
-  else{sn.style.color='var(--error)';sm.textContent=`Necesitas mínimo 7/10. Repasa las normas.`;ss.textContent=`Has acertado ${score} de 10. Revisa las incorrectas.`;btn.textContent='REINTENTAR';btn.onclick=resetQuiz;}
-}
-
-function resetQuiz(){
-  quizChecked=false;quizScore=0;
-  document.getElementById('score-bar').style.display='none';
-  document.querySelectorAll('.quiz-feedback').forEach(e=>{e.className='quiz-feedback';e.style.display='none';});
-  document.querySelectorAll('.quiz-opt').forEach(e=>e.classList.remove('selected'));
-  document.querySelectorAll('input[type="radio"]').forEach(e=>e.checked=false);
-  const btn=document.getElementById('btn-check-quiz');btn.textContent='COMPROBAR RESPUESTAS';btn.onclick=checkQuiz;
+  // El jugador solo ve que puede continuar, sin saber si aprobó o suspendió
+  sn.style.color='var(--purple)';
+  sm.textContent='Test completado. Puedes continuar.';
+  ss.textContent='El staff revisará tus respuestas junto con tu postulación.';
+  btn.textContent='CONTINUAR →';
+  btn.onclick=()=>nextStep(4);
 }
 
 function selectOpt(gid,fid,btn){
@@ -242,7 +233,6 @@ function selectOpt(gid,fid,btn){
 function updateCount(id,cid,max){document.getElementById(cid).textContent=document.getElementById(id).value.length+' / '+max;}
 function toggleChk(id){const cb=document.getElementById(id).querySelector('input[type="checkbox"]');document.getElementById(id).classList.toggle('checked',cb.checked);}
 
-let currentStep=1;
 const stepW=['20%','40%','60%','80%','100%'];
 
 function showStep(s){
@@ -250,7 +240,7 @@ function showStep(s){
   document.getElementById('step-'+s).classList.add('active');
   document.getElementById('progress-fill').style.width=stepW[s-1];
   for(let i=1;i<=5;i++)document.getElementById('sl'+i).classList.toggle('active',i===s);
-  window.scrollTo({top:0,behavior:'smooth'});currentStep=s;
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
 function validateStep(s){
@@ -265,34 +255,62 @@ function validateStep(s){
 
 function nextStep(s){
   if(!validateStep(s))return;
-  if(s===4&&(!quizChecked||quizScore<7)){alert('Debes aprobar el test con al menos 7/10 para continuar.');return;}
+  if(s===4&&!quizChecked){alert('Debes completar el test antes de continuar.');return;}
   showStep(s+1);
 }
 function prevStep(s){showStep(s-1);}
 
 function buildEmbed(){
-  const ans=questions.map((q,i)=>{const sel=document.querySelector(`input[name="q${i}"]:checked`);const v=sel?parseInt(sel.value):-1;return `${v===q.correct?'✅':'❌'} **P${i+1}:** ${q.q.substring(0,50)}...\n→ ${v>=0?q.opts[v]:'Sin responder'}`;}).join('\n');
-  return{username:'Pixeled Community',embeds:[{title:'📋 Nueva Postulación — '+document.getElementById('nick').value.trim(),color:0x7F77DD,fields:[
-    {name:'👤 Datos Personales',value:`**Nick:** ${document.getElementById('nick').value.trim()}\n**Discord:** ${document.getElementById('discord').value.trim()}\n**Edad:** ${document.getElementById('edad').value} años\n**País:** ${document.getElementById('pais').value||'No especificado'}`,inline:false},
-    {name:'🎮 Experiencia',value:`**Tiempo en RP:** ${document.getElementById('exp').value}\n**Servidores:** ${document.getElementById('servidores').value||'Ninguno'}\n**Cómo nos conoció:** ${document.getElementById('conoce').value}`,inline:false},
-    {name:'🎭 Personaje',value:`**Nombre:** ${document.getElementById('nombre-per').value.trim()}\n**Rol deseado:** ${document.getElementById('trabajo').value||'Sin decidir'}`,inline:false},
-    {name:'📖 Backstory',value:document.getElementById('backstory').value.trim().substring(0,1024),inline:false},
-    {name:`🎯 Test de Normas — ${quizScore}/10`,value:ans.substring(0,1024),inline:false},
-    {name:'❓ OOC / Romper el personaje',value:document.getElementById('ooc').value.trim().substring(0,500),inline:false},
-    {name:'⌨️ /me y /do',value:document.getElementById('me-do').value.trim().substring(0,500),inline:false},
-    {name:'✅ Compromisos',value:'✔ Acepta normas\n✔ Tiene micrófono\n✔ Respeta IC/OOC\n✔ No practica MG/PG/RDM/VDM/RK\n✔ Compromiso de respeto',inline:false},
-  ],footer:{text:'Pixeled Community · '+new Date().toLocaleString('es-ES')},timestamp:new Date().toISOString()}]};
+  // Solo el staff ve si aprobó o suspendió
+  const aprobado=quizScore>=7;
+  const estadoEmoji=aprobado?'✅':'❌';
+  const estadoTexto=aprobado?'APROBADO':'SUSPENDIDO';
+  const embedColor=aprobado?0x3DB87A:0xE24B4A;
+
+  const ans=questions.map((q,i)=>{
+    const sel=document.querySelector(`input[name="q${i}"]:checked`);
+    const v=sel?parseInt(sel.value):-1;
+    return`${v===q.correct?'✅':'❌'} **P${i+1}:** ${q.q.substring(0,55)}...\n→ ${v>=0?q.opts[v]:'Sin responder'}`;
+  }).join('\n');
+
+  return{
+    username:'Pixeled Community',
+    embeds:[{
+      title:`📋 Nueva Postulación — ${document.getElementById('nick').value.trim()}`,
+      color:embedColor,
+      fields:[
+        {name:`${estadoEmoji} Resultado del Test`,value:`**${estadoTexto}** — ${quizScore}/10 correctas\n${aprobado?'El candidato ha superado el test de normas.':'El candidato no ha superado el test de normas (mínimo 7/10).'}`,inline:false},
+        {name:'👤 Datos Personales',value:`**Nick:** ${document.getElementById('nick').value.trim()}\n**Discord:** ${document.getElementById('discord').value.trim()}\n**Edad:** ${document.getElementById('edad').value} años\n**País:** ${document.getElementById('pais').value||'No especificado'}`,inline:false},
+        {name:'🎮 Experiencia',value:`**Tiempo en RP:** ${document.getElementById('exp').value}\n**Servidores:** ${document.getElementById('servidores').value||'Ninguno'}\n**Cómo nos conoció:** ${document.getElementById('conoce').value}`,inline:false},
+        {name:'🎭 Personaje',value:`**Nombre:** ${document.getElementById('nombre-per').value.trim()}\n**Rol deseado:** ${document.getElementById('trabajo').value||'Sin decidir'}`,inline:false},
+        {name:'📖 Backstory',value:document.getElementById('backstory').value.trim().substring(0,1024),inline:false},
+        {name:`🎯 Respuestas del Test (${quizScore}/10)`,value:ans.substring(0,1024),inline:false},
+        {name:'❓ OOC / Romper el personaje',value:document.getElementById('ooc').value.trim().substring(0,500),inline:false},
+        {name:'⌨️ /me y /do',value:document.getElementById('me-do').value.trim().substring(0,500),inline:false},
+        {name:'✅ Compromisos aceptados',value:'✔ Normas del servidor\n✔ Uso de micrófono\n✔ IC/OOC\n✔ Sin MG/PG/RDM/VDM/RK\n✔ Respeto',inline:false},
+      ],
+      footer:{text:`Pixeled Community · ${new Date().toLocaleString('es-ES')}`},
+      timestamp:new Date().toISOString()
+    }]
+  };
 }
 
 async function submitForm(){
   document.getElementById('global-error-2').style.display='none';
   if(!validateStep(5))return;
-  const btn=document.getElementById('btn-submit');btn.disabled=true;btn.classList.add('loading');btn.textContent='ENVIANDO...';
+  const btn=document.getElementById('btn-submit');
+  btn.disabled=true;btn.classList.add('loading');btn.textContent='ENVIANDO...';
   try{
     const res=await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(buildEmbed())});
-    if(res.ok||res.status===204){document.getElementById('form-wrap').style.display='none';document.getElementById('success-screen').style.display='block';window.scrollTo({top:0,behavior:'smooth'});}
-    else throw new Error();
-  }catch{document.getElementById('global-error-2').style.display='block';btn.disabled=false;btn.classList.remove('loading');btn.textContent='ENVIAR POSTULACIÓN ✓';}
+    if(res.ok||res.status===204){
+      document.getElementById('form-wrap').style.display='none';
+      document.getElementById('success-screen').style.display='block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }else throw new Error();
+  }catch{
+    document.getElementById('global-error-2').style.display='block';
+    btn.disabled=false;btn.classList.remove('loading');btn.textContent='ENVIAR POSTULACIÓN ✓';
+  }
 }
 renderQuiz();
 </script>
