@@ -12,9 +12,7 @@
   body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:radial-gradient(ellipse at 20% 20%,rgba(127,119,221,.07) 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,rgba(83,74,183,.05) 0%,transparent 60%);pointer-events:none;z-index:0;}
   .wrap{max-width:700px;margin:0 auto;position:relative;z-index:1;}
   .header{text-align:center;margin-bottom:2.5rem;}
-  .logo-img{width:96px;height:96px;object-fit:contain;margin-bottom:1rem;image-rendering:pixelated;}
-  .title{font-family:'Rajdhani',sans-serif;font-size:32px;font-weight:700;letter-spacing:3px;background:linear-gradient(135deg,#fff 0%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .subtitle{font-size:14px;color:var(--text-muted);margin-top:4px;}
+  .logo-img{width:120px;height:120px;object-fit:contain;margin-bottom:0;}
   .progress-wrap{margin-bottom:2rem;}
   .progress-steps{display:flex;justify-content:space-between;margin-bottom:8px;}
   .step-label{font-size:11px;color:var(--text-muted);font-weight:600;letter-spacing:.5px;}
@@ -37,6 +35,7 @@
   .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(127,119,221,.15);}
   .field select option{background:#1E1E1E;}
   .field textarea{resize:vertical;min-height:90px;line-height:1.6;}
+  .field textarea.large{min-height:220px;}
   .field.error input,.field.error select,.field.error textarea{border-color:var(--error);}
   .err-msg{font-size:11px;color:var(--error);display:none;}
   .field.error .err-msg{display:block;}
@@ -62,6 +61,8 @@
   .quiz-feedback{font-size:12px;margin-top:6px;display:none;padding:6px 10px;border-radius:6px;}
   .quiz-feedback.correct{background:rgba(61,184,122,.1);color:var(--success);border:1px solid rgba(61,184,122,.3);display:block;}
   .quiz-feedback.wrong{background:rgba(226,75,74,.1);color:var(--error);border:1px solid rgba(226,75,74,.3);display:block;}
+  .quiz-textarea{width:100%;min-height:80px;background:var(--surface);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'Nunito',sans-serif;font-size:13px;padding:10px 12px;outline:none;resize:vertical;line-height:1.6;transition:border-color .2s;}
+  .quiz-textarea:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(127,119,221,.15);}
   .nav-btns{display:flex;gap:10px;margin-top:1.5rem;}
   .btn-back{flex:1;padding:12px;background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text-muted);font-family:'Rajdhani',sans-serif;font-size:15px;font-weight:600;letter-spacing:1px;cursor:pointer;transition:all .15s;}
   .btn-back:hover{border-color:var(--purple);color:var(--purple);}
@@ -72,57 +73,60 @@
   @keyframes spin{to{transform:rotate(360deg)}}
   .notice{background:var(--purple-bg);border:1px solid var(--purple-d);border-radius:10px;padding:1rem 1.25rem;font-size:13px;color:#aaa;line-height:1.6;margin-bottom:1.25rem;}
   .notice strong{color:var(--purple);}
-  .score-bar{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:12px;}
-  .score-num{font-family:'Rajdhani',sans-serif;font-size:28px;font-weight:700;color:var(--purple);}
-  .score-label{font-size:13px;color:var(--text-muted);}
-  .score-label strong{color:var(--text);}
   .global-error{background:rgba(226,75,74,.1);border:1px solid var(--error);border-radius:10px;padding:1rem;color:var(--error);font-size:13px;margin-bottom:1rem;display:none;}
   .success-screen{display:none;text-align:center;padding:4rem 2rem;}
   .success-icon{width:80px;height:80px;background:rgba(61,184,122,.15);border:2px solid var(--success);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:1.5rem;animation:pop .4s ease;}
   @keyframes pop{0%{transform:scale(.5);opacity:0}80%{transform:scale(1.1)}100%{transform:scale(1);opacity:1}}
   .success-screen h2{font-family:'Rajdhani',sans-serif;font-size:26px;font-weight:700;color:var(--success);margin-bottom:10px;}
   .success-screen p{font-size:15px;color:var(--text-muted);line-height:1.7;}
+  .historia-tip{font-size:12px;color:var(--text-muted);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;margin-bottom:8px;line-height:1.6;}
+  .historia-tip strong{color:var(--purple);}
+  .quiz-section-label{font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;color:var(--purple);letter-spacing:2px;text-transform:uppercase;padding:6px 12px;background:var(--purple-bg);border-radius:6px;margin-bottom:12px;display:inline-block;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="header">
-    <img src="./logo96.png" alt="Pixeled Community" class="logo-img"><br>
-    <div class="title">PIXELED COMMUNITY</div>
-    <div class="subtitle">Formulario de postulación al servidor</div>
+    <img src="https://raw.githubusercontent.com/pixeled-community/logo-pixeled/main/your_server.png" alt="Pixeled Community" class="logo-img">
   </div>
   <div class="progress-wrap">
     <div class="progress-steps">
       <span class="step-label active" id="sl1">Datos</span>
       <span class="step-label" id="sl2">Experiencia</span>
       <span class="step-label" id="sl3">Personaje</span>
-      <span class="step-label" id="sl4">Test Normas</span>
+      <span class="step-label" id="sl4">Whitelist</span>
       <span class="step-label" id="sl5">Enviar</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
   </div>
   <div id="form-wrap">
+
     <!-- PASO 1 -->
     <div class="card active" id="step-1">
       <div class="section-title">Datos Personales <span class="section-num">1 / 5</span></div>
       <div class="grid-2">
         <div class="field" id="f-nick"><label>Nick de FiveM <span>*</span></label><input type="text" id="nick" placeholder="Tu nombre en el juego" maxlength="30"><span class="err-msg">Campo obligatorio</span></div>
         <div class="field" id="f-discord"><label>Discord <span>*</span></label><input type="text" id="discord" placeholder="@usuario o usuario#0000" maxlength="50"><span class="err-msg">Campo obligatorio</span></div>
-        <div class="field" id="f-edad"><label>Edad real <span>*</span></label><input type="number" id="edad" placeholder="Tu edad" min="14" max="99"><span class="err-msg">Mínimo 14 años</span></div>
+        <div class="field" id="f-edad"><label>Edad real <span>*</span></label><input type="number" id="edad" placeholder="Tu edad" min="18" max="99"><span class="err-msg">Debes tener al menos 18 años (servidor +18)</span></div>
         <div class="field"><label>País</label><select id="pais"><option value="">Selecciona tu país</option><option>España</option><option>México</option><option>Argentina</option><option>Colombia</option><option>Chile</option><option>Venezuela</option><option>Perú</option><option>Otro</option></select></div>
       </div>
       <div class="nav-btns"><button class="btn-next" onclick="nextStep(1)">CONTINUAR →</button></div>
     </div>
+
     <!-- PASO 2 -->
     <div class="card" id="step-2">
       <div class="section-title">Experiencia en Roleplay <span class="section-num">2 / 5</span></div>
       <div class="grid-1">
         <div class="field" id="f-exp"><label>¿Cuánto tiempo llevas haciendo roleplay? <span>*</span></label><div class="opts" id="exp-opts"><button class="opt-btn" onclick="selectOpt('exp-opts','exp',this)">Soy nuevo</button><button class="opt-btn" onclick="selectOpt('exp-opts','exp',this)">Menos de 1 año</button><button class="opt-btn" onclick="selectOpt('exp-opts','exp',this)">1 - 3 años</button><button class="opt-btn" onclick="selectOpt('exp-opts','exp',this)">Más de 3 años</button></div><input type="hidden" id="exp"><span class="err-msg">Selecciona una opción</span></div>
         <div class="field"><label>Servidores anteriores</label><input type="text" id="servidores" placeholder="Ej: NoPixel, Eclipse, otros..." maxlength="100"></div>
+        <div class="field" id="f-baneado"><label>¿Has sido baneado en algún servidor anteriormente? <span>*</span></label><div class="opts" id="ban-opts"><button class="opt-btn" onclick="selectOpt('ban-opts','baneado',this)">No, nunca</button><button class="opt-btn" onclick="selectOpt('ban-opts','baneado',this)">Sí, pero fue hace tiempo</button><button class="opt-btn" onclick="selectOpt('ban-opts','baneado',this)">Sí, explico abajo</button></div><input type="hidden" id="baneado"><span class="err-msg">Selecciona una opción</span></div>
+        <div class="field"><label>Si fuiste baneado, explica brevemente el motivo</label><textarea id="ban-motivo" placeholder="Sé honesto, valoramos la sinceridad..." maxlength="300" oninput="updateCount('ban-motivo','bm-count',300)"></textarea><div style="display:flex;justify-content:flex-end"><span class="char-count" id="bm-count">0 / 300</span></div></div>
         <div class="field" id="f-conoce"><label>¿Cómo conociste Pixeled Community? <span>*</span></label><select id="conoce"><option value="">Selecciona...</option><option>Discord</option><option>Amigo o conocido</option><option>Redes sociales</option><option>YouTube / Twitch</option><option>Otro</option></select><span class="err-msg">Campo obligatorio</span></div>
+        <div class="field" id="f-motivo"><label>¿Por qué quieres entrar a Pixeled Community y no a otro servidor? <span>*</span></label><textarea id="motivo" placeholder="Cuéntanos qué te atrae de Pixeled específicamente..." maxlength="400" oninput="updateCount('motivo','mot-count',400)"></textarea><div style="display:flex;justify-content:space-between"><span class="err-msg">Campo obligatorio</span><span class="char-count" id="mot-count">0 / 400</span></div></div>
       </div>
       <div class="nav-btns"><button class="btn-back" onclick="prevStep(2)">← VOLVER</button><button class="btn-next" onclick="nextStep(2)">CONTINUAR →</button></div>
     </div>
+
     <!-- PASO 3 -->
     <div class="card" id="step-3">
       <div class="section-title">Tu Personaje <span class="section-num">3 / 5</span></div>
@@ -130,22 +134,30 @@
         <div class="field" id="f-nombre-per"><label>Nombre del personaje <span>*</span></label><input type="text" id="nombre-per" placeholder="Nombre Apellido" maxlength="50"><span class="err-msg">Campo obligatorio</span></div>
         <div class="field"><label>Rol deseado</label><select id="trabajo"><option value="">Selecciona un rol</option><option>Civil</option><option>Policía (LSPD)</option><option>Médico (EMS)</option><option>Mecánico</option><option>Empresario</option><option>Criminal</option><option>Sin decidir</option></select></div>
       </div>
-      <div class="field" id="f-backstory"><label>Historia del personaje (backstory) <span>*</span></label><textarea id="backstory" placeholder="¿De dónde viene? ¿Por qué llegó a Los Santos? ¿Qué busca? (mín. 100 caracteres)" maxlength="1000" oninput="updateCount('backstory','bs-count',1000)"></textarea><div style="display:flex;justify-content:space-between"><span class="err-msg">Mínimo 100 caracteres</span><span class="char-count" id="bs-count">0 / 1000</span></div></div>
+      <div class="field" id="f-historia">
+        <label>Historia del personaje (backstory) <span>*</span></label>
+        <div class="historia-tip"><strong>📝 Sin límite de extensión.</strong> Cuéntanos la historia completa de tu personaje: de dónde viene, qué le llevó a Los Santos, su pasado, motivaciones y cómo piensa evolucionar.</div>
+        <textarea class="large" id="historia" placeholder="Escribe aquí la historia de tu personaje..." oninput="updateHistoriaCount()"></textarea>
+        <div style="display:flex;justify-content:space-between;margin-top:4px">
+          <span class="err-msg" id="historia-err" style="display:none">Mínimo 150 caracteres</span>
+          <span class="char-count" id="hist-count">0 caracteres</span>
+        </div>
+      </div>
       <div class="nav-btns"><button class="btn-back" onclick="prevStep(3)">← VOLVER</button><button class="btn-next" onclick="nextStep(3)">CONTINUAR →</button></div>
     </div>
-    <!-- PASO 4: TEST -->
+
+    <!-- PASO 4: WHITELIST -->
     <div class="card" id="step-4">
-      <div class="section-title">Test de Normas RP <span class="section-num">4 / 5</span></div>
-      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.6;">Responde las 10 preguntas sobre las normas básicas del roleplay antes de continuar.</p>
+      <div class="section-title">Whitelist <span class="section-num">4 / 5</span></div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:1.25rem;line-height:1.6;">Responde todas las preguntas. Las primeras 10 son de desarrollo, las últimas 10 de tipo test.</p>
       <div id="quiz-container"></div>
-      <div class="score-bar" id="score-bar" style="display:none"><div class="score-num" id="score-num">0/10</div><div class="score-label"><strong id="score-msg"></strong><br><span id="score-sub"></span></div></div>
-      <div class="nav-btns"><button class="btn-back" onclick="prevStep(4)">← VOLVER</button><button class="btn-next" id="btn-check-quiz" onclick="checkQuiz()">COMPROBAR RESPUESTAS</button></div>
+      <div class="nav-btns"><button class="btn-back" onclick="prevStep(4)">← VOLVER</button><button class="btn-next" id="btn-check-quiz" onclick="checkQuiz()">COMPROBAR Y CONTINUAR</button></div>
     </div>
+
     <!-- PASO 5 -->
     <div class="card" id="step-5">
       <div class="section-title">Compromisos y Envío <span class="section-num">5 / 5</span></div>
       <div class="grid-1">
-        <div class="field" id="f-ooc"><label>¿Qué entiendes por "romper el personaje" (OOC)? <span>*</span></label><textarea id="ooc" placeholder="Explica con tus propias palabras..." maxlength="400" oninput="updateCount('ooc','ooc-count',400)"></textarea><div style="display:flex;justify-content:space-between"><span class="err-msg">Campo obligatorio</span><span class="char-count" id="ooc-count">0 / 400</span></div></div>
         <div class="field" id="f-checks"><label>Confirmo que <span>*</span></label>
           <div class="chk-list">
             <label class="chk-item" id="ci1"><input type="checkbox" id="chk1" onchange="toggleChk('ci1')"> He leído y acepto todas las normas del servidor</label>
@@ -153,6 +165,7 @@
             <label class="chk-item" id="ci3"><input type="checkbox" id="chk3" onchange="toggleChk('ci3')"> Entiendo y respetaré las normas de IC/OOC en todo momento</label>
             <label class="chk-item" id="ci4"><input type="checkbox" id="chk4" onchange="toggleChk('ci4')"> No practicaré metagaming, powergaming, RDM, VDM ni RK</label>
             <label class="chk-item" id="ci5"><input type="checkbox" id="chk5" onchange="toggleChk('ci5')"> Me comprometo a mantener un ambiente respetuoso con todos</label>
+            <label class="chk-item" id="ci6"><input type="checkbox" id="chk6" onchange="toggleChk('ci6')"> Grabaré mis sesiones durante actos delictivos si los realizo</label>
           </div>
           <span class="err-msg">Debes aceptar todos los compromisos</span>
         </div>
@@ -162,149 +175,349 @@
       <div class="nav-btns"><button class="btn-back" onclick="prevStep(5)">← VOLVER</button><button class="btn-next" id="btn-submit" onclick="submitForm()">ENVIAR POSTULACIÓN ✓</button></div>
     </div>
   </div>
+
   <div class="success-screen" id="success-screen">
     <div class="success-icon">✓</div>
     <h2>¡Postulación recibida!</h2>
     <p>Gracias por querer unirte a <strong>Pixeled Community</strong>.<br>Revisaremos tu solicitud y recibirás una respuesta<br>en las próximas <strong>24-72 horas</strong> por Discord.</p>
   </div>
 </div>
-<script>
-// ⚠️ REEMPLAZA CON TU WEBHOOK DE DISCORD
-const WEBHOOK_URL='https://discord.com/api/webhooks/1510279318465413282/PVaTIQVZVZWnV7CPrB_6b8vRxpeA1K4xOPeKEHu3OeEaWouEaetJeHF5yh4-Jm6NUDHL';
 
-const questions=[
-  {q:'¿Qué significa IC (In Character)?',opts:['Hablar por Discord durante el juego','Todo lo que hace y dice tu personaje dentro del roleplay','Un comando para hablar con el staff','Salir del juego temporalmente'],correct:1,exp:'IC es todo lo que ocurre dentro del roleplay: acciones, palabras y decisiones de tu personaje.'},
-  {q:'¿Qué es el Metagaming (MG)?',opts:['Usar información de fuera del juego (Discord, streams...) dentro del RP','Jugar muchas horas seguidas','Usar mods externos','Hablar por voz con otros jugadores'],correct:0,exp:'El Metagaming es usar información real (OOC) para beneficiarse en el RP. Está estrictamente prohibido.'},
-  {q:'¿Qué es el RDM (Random Death Match)?',opts:['Un modo de juego especial','Matar o agredir a alguien sin motivo de RP válido','Un comando para terminar combates','Morir por accidente'],correct:1,exp:'El RDM es atacar a otro jugador sin contexto de RP previo. Siempre debe existir una razón de rol.'},
-  {q:'¿Para qué sirve el comando /me?',opts:['Enviar un mensaje privado','Describir una acción física de tu personaje','Reportar a un jugador','Ver tu perfil'],correct:1,exp:'/me describe una acción visible para los cercanos. Ej: /me saca lentamente la cartera del bolsillo.'},
-  {q:'¿Para qué sirve el comando /do?',opts:['Hacer una acción de combate','Describir el entorno o detalles de la escena','Cambiar de personaje','Llamar a un taxi'],correct:1,exp:'/do describe detalles del entorno. Ej: /do La puerta está oxidada y apenas se puede abrir.'},
-  {q:'¿Qué significa el Powergaming?',opts:['Jugar muchas horas para subir de nivel','Forzar acciones sobre otros sin darles oportunidad de reaccionar','Usar builds muy potentes','Tener mucho dinero en el juego'],correct:1,exp:'El Powergaming es forzar situaciones sobre otros sin permitir reacción. Ej: /me le roba sin esperar respuesta.'},
-  {q:'¿Qué es el Rol de Miedo?',opts:['Un servidor de terror','La obligación de que tu personaje sienta miedo ante peligro real','Un comando para rendirse','Una norma que prohíbe armas'],correct:1,exp:'El Rol de Miedo obliga a reaccionar con miedo ante peligro real. Si alguien te apunta, tu personaje no puede ignorarlo.'},
-  {q:'¿Qué es el VDM (Vehicle Death Match)?',opts:['Un modo de carreras','Usar un vehículo para atropellar jugadores sin motivo de RP','Un fallo técnico','Una misión de conducción'],correct:1,exp:'El VDM es atropellar intencionadamente a jugadores con un vehículo sin razón de RP válida.'},
-  {q:'¿Qué es el Revenge Kill (RK)?',opts:['Matar a quien te mató antes sin haber olvidado ese evento','Un contrato de asesinato','Recuperar objetos al morir','Pedir ayuda al staff tras un PK'],correct:0,exp:'El RK es volver a por quien te mató. Al morir, tu personaje olvida lo ocurrido en ese evento.'},
-  {q:'¿Cuándo está permitido romper el personaje (ir OOC)?',opts:['Siempre que quieras','Nunca bajo ningún concepto','Solo en situaciones técnicas urgentes usando los canales correctos','Cuando no sabes cómo continuar el RP'],correct:2,exp:'Solo se puede ir OOC en casos técnicos urgentes (bug, crash) usando /ooc o Discord. Nunca para evitar RP.'}
+<script>
+var WEBHOOK_URL = 'https://discord.com/api/webhooks/1510279318465413282/PVaTIQVZVZWnV7CPrB_6b8vRxpeA1K4xOPeKEHu3OeEaWouEaetJeHF5yh4-Jm6NUDHL';
+
+var questionsText = [
+  {type:'text', q:'¿Qué es el Metagaming (MG)? Pon un ejemplo.', placeholder:'Explica con tus propias palabras qué es y pon un ejemplo concreto...'},
+  {type:'text', q:'¿Qué diferencia hay entre un PK y un CK? Explica las consecuencias de cada uno.', placeholder:'Describe ambos conceptos y qué implica cada uno para tu personaje...'},
+  {type:'text', q:'¿Para qué sirve el comando /me? Pon un ejemplo real de uso.', placeholder:'Explica su función y escribe un ejemplo de cómo lo usarías en el juego...'},
+  {type:'text', q:'¿Para qué sirve el comando /do? Pon un ejemplo real de uso.', placeholder:'Explica su función y escribe un ejemplo de cómo lo usarías en el juego...'},
+  {type:'text', q:'¿Qué es el Fair Play? Pon un ejemplo de infracción.', placeholder:'Define el concepto y describe una situación concreta que lo incumpliría...'},
+  {type:'text', q:'¿En qué consiste el rol de entorno? Pon un ejemplo de infracción.', placeholder:'Explica el concepto y describe una situación que lo incumpliría...'},
+  {type:'text', q:'En una persecución, la facción perseguida entra en su barrio/sede. ¿Qué ocurre con el rol?', placeholder:'Explica qué pasa con el RDE, qué consecuencias tiene para cada bando...'},
+  {type:'text', q:'¿Cuándo puede una banda realizar un CK a un miembro de la policía? ¿Qué condiciones deben cumplirse?', placeholder:'Describe todas las condiciones necesarias según la normativa...'},
+  {type:'text', q:'¿Qué es el Revenge Kill (RK) y por qué está prohibido?', placeholder:'Define el concepto y explica por qué la normativa lo prohíbe...'},
+  {type:'text', q:'¿Qué es el Powergaming? Pon un ejemplo.', placeholder:'Explica el concepto y pon un ejemplo concreto de situación en el juego...'}
 ];
 
-function renderQuiz(){
-  document.getElementById('quiz-container').innerHTML=questions.map((q,i)=>`
-    <div class="quiz-item" id="qi-${i}">
-      <div class="quiz-q"><span>${i+1}.</span>${q.q}</div>
-      <div class="quiz-opts">${q.opts.map((o,j)=>`<label class="quiz-opt" id="qo-${i}-${j}" onclick="selQ(${i},${j})"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}</div>
-      <div class="quiz-feedback" id="qf-${i}"></div>
-    </div>`).join('');
-}
+var questionsABCD = [
+  {type:'abcd', q:'¿Cuántos policías deben estar de servicio para realizar un robo a la joyería Vangelico?', opts:['2 policías mínimo','Entre 4 y 6 policías','Entre 8 y 10 policías','No se requiere policía'], correct:1, exp:'La joyería Vangelico es un robo medio que requiere entre 4 y 6 policías de servicio.'},
+  {type:'abcd', q:'¿Cuánto tiempo debes esperar antes de volver a una zona donde has sido abatido?', opts:['10 minutos','20 minutos','40 minutos','1 hora'], correct:2, exp:'La normativa establece 40 minutos de espera antes de poder regresar a una zona donde fuiste abatido.'},
+  {type:'abcd', q:'¿Está permitido usar binds durante un rol agresivo?', opts:['Sí, para agilizar el rol','Solo en persecuciones en vehículo','No, está totalmente prohibido','Solo con permiso del staff'], correct:2, exp:'El uso de binds en roles agresivos está totalmente prohibido. Todo debe interpretarse de forma manual.'},
+  {type:'abcd', q:'¿Qué ocurre si tu personaje acumula más de 100.000$ en multas al ser detenido?', opts:['Solo paga una parte proporcional','Recibe cadena perpetua directa (CK Policial)','Puede pagar en cuotas','No ocurre nada especial'], correct:1, exp:'Con más de 100.000$ en multas al momento de la detención se aplica cadena perpetua (CK Policial).'},
+  {type:'abcd', q:'¿Puedes realizar actos delictivos en los 30 minutos previos a un reinicio del servidor?', opts:['Sí, sin restricciones','Solo robos pequeños sin rehenes','No, está prohibido en ese período','Solo si hay más de 5 policías'], correct:2, exp:'Está prohibido realizar actos delictivos en los 30 minutos previos a un reinicio y los 15 posteriores.'},
+  {type:'abcd', q:'¿Está permitido robar materiales a un trabajador en su zona de trabajo de forma no conflictiva y sin rol previo?', opts:['Sí, siempre que sea rápido','Solo si lleva más de 1 hora trabajando','No, está terminantemente prohibido','Solo si es de una banda rival'], correct:2, exp:'No está permitido robar ni secuestrar a un trabajador en su zona de trabajo si actúa de forma no conflictiva y sin rol previo de peso.'},
+  {type:'abcd', q:'¿Qué es el VDM (Vehicle Death Match)?', opts:['Una carrera ilegal entre jugadores','Atropellar intencionadamente a jugadores con un vehículo sin motivo de RP','Un fallo técnico del servidor al chocar','Una misión de conducción avanzada'], correct:1, exp:'El VDM es usar un vehículo como arma para dejar inconsciente a otro jugador sin razón de RP válida.'},
+  {type:'abcd', q:'¿Cuántos policías deben estar de servicio mínimo para poder secuestrar a un policía?', opts:['2 policías','3 policías','5 policías','8 policías'], correct:2, exp:'Para secuestrar a un policía deben estar de servicio mínimo 5 policías.'},
+  {type:'abcd', q:'¿Está permitido obligar a una persona a sacar dinero del banco durante un rol?', opts:['Sí, es una táctica válida','Solo si hay un rehén de por medio','No, está totalmente prohibido','Solo si el atracado acepta'], correct:2, exp:'Está totalmente prohibido obligar a una persona a sacar dinero del banco.'},
+  {type:'abcd', q:'¿Qué debes hacer si detectas un bug o dupeo en el servidor?', opts:['Aprovecharlo y no decir nada','Reportarlo inmediatamente a un Administrador','Comentarlo con amigos','Ignorarlo'], correct:1, exp:'Cualquier bug o dupeo debe reportarse inmediatamente a un Administrador. No hacerlo puede suponer expulsión permanente.'}
+];
 
-function selQ(qi,oi){
-  document.querySelectorAll(`[id^="qo-${qi}-"]`).forEach(e=>e.classList.remove('selected'));
-  document.getElementById(`qo-${qi}-${oi}`).classList.add('selected');
-  document.querySelector(`input[name="q${qi}"][value="${oi}"]`).checked=true;
-  const fb=document.getElementById(`qf-${qi}`);fb.className='quiz-feedback';fb.style.display='none';
-}
+var questions = questionsText.concat(questionsABCD);
+var quizChecked = false;
 
-let quizScore=0,quizChecked=false;
-
-function checkQuiz(){
-  let score=0,all=true;
-  questions.forEach((q,i)=>{
-    const sel=document.querySelector(`input[name="q${i}"]:checked`);
-    if(!sel){all=false;return;}
-    const v=parseInt(sel.value),fb=document.getElementById(`qf-${i}`);
-    if(v===q.correct){score++;fb.textContent='✓ Correcto — '+q.exp;fb.className='quiz-feedback correct';}
-    else{fb.textContent='✗ Incorrecto — '+q.exp;fb.className='quiz-feedback wrong';}
+function renderQuiz() {
+  var html = '<div class="quiz-section-label">✏️ Preguntas de desarrollo (1-10)</div>';
+  questionsText.forEach(function(q, i) {
+    html += '<div class="quiz-item" id="qi-' + i + '">';
+    html += '<div class="quiz-q"><span>' + (i+1) + '.</span>' + q.q + '</div>';
+    html += '<textarea class="quiz-textarea" id="qt-' + i + '" placeholder="' + q.placeholder + '" oninput="updateQtCount(' + i + ')"></textarea>';
+    html += '<div style="display:flex;justify-content:flex-end"><span class="char-count" id="qtc-' + i + '">0 caracteres</span></div>';
+    html += '</div>';
   });
-  if(!all){alert('Responde todas las preguntas antes de continuar.');return;}
-  quizScore=score;quizChecked=true;
-  const btn=document.getElementById('btn-check-quiz');
-  btn.textContent='CONTINUAR →';
-  btn.onclick=()=>nextStep(4);
+
+  html += '<div class="quiz-section-label" style="margin-top:1.5rem">🔤 Preguntas tipo test (11-20)</div>';
+  questionsABCD.forEach(function(q, idx) {
+    var i = idx + questionsText.length;
+    html += '<div class="quiz-item" id="qi-' + i + '">';
+    html += '<div class="quiz-q"><span>' + (i+1) + '.</span>' + q.q + '</div>';
+    html += '<div class="quiz-opts">';
+    q.opts.forEach(function(o, j) {
+      html += '<label class="quiz-opt" id="qo-' + i + '-' + j + '" onclick="selQ(' + i + ',' + j + ')"><input type="radio" name="q' + i + '" value="' + j + '"> ' + o + '</label>';
+    });
+    html += '</div><div class="quiz-feedback" id="qf-' + i + '"></div></div>';
+  });
+
+  document.getElementById('quiz-container').innerHTML = html;
 }
 
-function selectOpt(gid,fid,btn){
-  document.querySelectorAll('#'+gid+' .opt-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');document.getElementById(fid).value=btn.textContent;
-  document.getElementById('f-'+fid).classList.remove('error');
-}
-function updateCount(id,cid,max){document.getElementById(cid).textContent=document.getElementById(id).value.length+' / '+max;}
-function toggleChk(id){const cb=document.getElementById(id).querySelector('input[type="checkbox"]');document.getElementById(id).classList.toggle('checked',cb.checked);}
-
-const stepW=['20%','40%','60%','80%','100%'];
-
-function showStep(s){
-  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-  document.getElementById('step-'+s).classList.add('active');
-  document.getElementById('progress-fill').style.width=stepW[s-1];
-  for(let i=1;i<=5;i++)document.getElementById('sl'+i).classList.toggle('active',i===s);
-  window.scrollTo({top:0,behavior:'smooth'});
+function updateQtCount(i) {
+  var ta = document.getElementById('qt-' + i);
+  document.getElementById('qtc-' + i).textContent = ta.value.length + ' caracteres';
 }
 
-function validateStep(s){
-  let ok=true;
-  const req=(fid,cond)=>{const f=document.getElementById(fid);if(cond){f.classList.add('error');ok=false;}else f.classList.remove('error');};
-  if(s===1){req('f-nick',!document.getElementById('nick').value.trim());req('f-discord',!document.getElementById('discord').value.trim());const e=parseInt(document.getElementById('edad').value);req('f-edad',!e||e<14);}
-  if(s===2){req('f-exp',!document.getElementById('exp').value);req('f-conoce',!document.getElementById('conoce').value);}
-  if(s===3){req('f-nombre-per',!document.getElementById('nombre-per').value.trim());req('f-backstory',document.getElementById('backstory').value.trim().length<100);}
-  if(s===5){req('f-ooc',!document.getElementById('ooc').value.trim());const all=['chk1','chk2','chk3','chk4','chk5'].every(id=>document.getElementById(id).checked);req('f-checks',!all);}
+function selQ(qi, oi) {
+  for (var j = 0; j < 4; j++) {
+    var el = document.getElementById('qo-' + qi + '-' + j);
+    if (el) el.classList.remove('selected');
+  }
+  document.getElementById('qo-' + qi + '-' + oi).classList.add('selected');
+  document.querySelector('input[name="q' + qi + '"][value="' + oi + '"]').checked = true;
+  var fb = document.getElementById('qf-' + qi);
+  if (fb) { fb.className = 'quiz-feedback'; fb.style.display = 'none'; }
+}
+
+function checkQuiz() {
+  var allAnswered = true;
+  questionsText.forEach(function(q, i) {
+    var val = document.getElementById('qt-' + i).value.trim();
+    if (!val) allAnswered = false;
+  });
+  questionsABCD.forEach(function(q, idx) {
+    var i = idx + questionsText.length;
+    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+    if (!sel) { allAnswered = false; return; }
+    var v = parseInt(sel.value);
+    var fb = document.getElementById('qf-' + i);
+    if (v === q.correct) {
+      fb.textContent = '✓ Correcto — ' + q.exp;
+      fb.className = 'quiz-feedback correct';
+    } else {
+      fb.textContent = '✗ Incorrecto — ' + q.exp;
+      fb.className = 'quiz-feedback wrong';
+    }
+  });
+  if (!allAnswered) { alert('Responde todas las preguntas antes de continuar.'); return; }
+  quizChecked = true;
+  var btn = document.getElementById('btn-check-quiz');
+  btn.textContent = 'CONTINUAR →';
+  btn.onclick = function() { nextStep(4); };
+}
+
+function selectOpt(gid, fid, btn) {
+  var opts = document.querySelectorAll('#' + gid + ' .opt-btn');
+  opts.forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.getElementById(fid).value = btn.textContent;
+  var f = document.getElementById('f-' + fid);
+  if (f) f.classList.remove('error');
+}
+
+function updateCount(id, cid, max) {
+  document.getElementById(cid).textContent = document.getElementById(id).value.length + ' / ' + max;
+}
+
+function updateHistoriaCount() {
+  var len = document.getElementById('historia').value.length;
+  document.getElementById('hist-count').textContent = len + ' caracteres';
+}
+
+function toggleChk(id) {
+  var cb = document.getElementById(id).querySelector('input[type="checkbox"]');
+  document.getElementById(id).classList.toggle('checked', cb.checked);
+}
+
+var stepW = ['20%','40%','60%','80%','100%'];
+
+function showStep(s) {
+  document.querySelectorAll('.card').forEach(function(c) { c.classList.remove('active'); });
+  document.getElementById('step-' + s).classList.add('active');
+  document.getElementById('progress-fill').style.width = stepW[s-1];
+  for (var i = 1; i <= 5; i++) {
+    document.getElementById('sl' + i).classList.toggle('active', i === s);
+  }
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function validateStep(s) {
+  var ok = true;
+  function req(fid, cond) {
+    var f = document.getElementById(fid);
+    if (!f) return;
+    if (cond) { f.classList.add('error'); ok = false; }
+    else { f.classList.remove('error'); }
+  }
+  if (s === 1) {
+    req('f-nick', !document.getElementById('nick').value.trim());
+    req('f-discord', !document.getElementById('discord').value.trim());
+    var e = parseInt(document.getElementById('edad').value);
+    req('f-edad', !e || e < 18);
+  }
+  if (s === 2) {
+    req('f-exp', !document.getElementById('exp').value);
+    req('f-baneado', !document.getElementById('baneado').value);
+    req('f-conoce', !document.getElementById('conoce').value);
+    req('f-motivo', !document.getElementById('motivo').value.trim());
+  }
+  if (s === 3) {
+    req('f-nombre-per', !document.getElementById('nombre-per').value.trim());
+    var hist = document.getElementById('historia').value.trim();
+    var histField = document.getElementById('f-historia');
+    var histErr = document.getElementById('historia-err');
+    if (hist.length < 150) {
+      histField.classList.add('error');
+      histErr.style.display = 'block';
+      ok = false;
+    } else {
+      histField.classList.remove('error');
+      histErr.style.display = 'none';
+    }
+  }
+  if (s === 5) {
+
+
+
+
+
+    var all = ['chk1','chk2','chk3','chk4','chk5','chk6'].every(function(id) {
+      return document.getElementById(id).checked;
+    });
+    req('f-checks', !all);
+  }
   return ok;
 }
 
-function nextStep(s){
-  if(!validateStep(s))return;
-  if(s===4&&!quizChecked){alert('Debes completar el test antes de continuar.');return;}
-  showStep(s+1);
+function nextStep(s) {
+  if (!validateStep(s)) return;
+  if (s === 4 && !quizChecked) { alert('Debes completar la whitelist antes de continuar.'); return; }
+  showStep(s + 1);
 }
-function prevStep(s){showStep(s-1);}
 
-function buildEmbed(){
-  // Solo el staff ve si aprobó o suspendió
-  const aprobado=quizScore>=7;
-  const estadoEmoji=aprobado?'✅':'❌';
-  const estadoTexto=aprobado?'APROBADO':'SUSPENDIDO';
-  const embedColor=aprobado?0x3DB87A:0xE24B4A;
+function prevStep(s) { showStep(s - 1); }
 
-  const ans=questions.map((q,i)=>{
-    const sel=document.querySelector(`input[name="q${i}"]:checked`);
-    const v=sel?parseInt(sel.value):-1;
-    return`${v===q.correct?'✅':'❌'} **P${i+1}:** ${q.q.substring(0,55)}...\n→ ${v>=0?q.opts[v]:'Sin responder'}`;
-  }).join('\n');
+function chunkText(text, max) {
+  if (!max) max = 1000;
+  var chunks = [];
+  for (var i = 0; i < text.length; i += max) chunks.push(text.slice(i, i + max));
+  return chunks;
+}
 
-  return{
-    username:'Pixeled Community',
-    embeds:[{
-      title:`📋 Nueva Postulación — ${document.getElementById('nick').value.trim()}`,
-      color:embedColor,
-      fields:[
-        {name:`${estadoEmoji} Resultado del Test`,value:`**${estadoTexto}** — ${quizScore}/10 correctas\n${aprobado?'El candidato ha superado el test de normas.':'El candidato no ha superado el test de normas (mínimo 7/10).'}`,inline:false},
-        {name:'👤 Datos Personales',value:`**Nick:** ${document.getElementById('nick').value.trim()}\n**Discord:** ${document.getElementById('discord').value.trim()}\n**Edad:** ${document.getElementById('edad').value} años\n**País:** ${document.getElementById('pais').value||'No especificado'}`,inline:false},
-        {name:'🎮 Experiencia',value:`**Tiempo en RP:** ${document.getElementById('exp').value}\n**Servidores:** ${document.getElementById('servidores').value||'Ninguno'}\n**Cómo nos conoció:** ${document.getElementById('conoce').value}`,inline:false},
-        {name:'🎭 Personaje',value:`**Nombre:** ${document.getElementById('nombre-per').value.trim()}\n**Rol deseado:** ${document.getElementById('trabajo').value||'Sin decidir'}`,inline:false},
-        {name:'📖 Backstory',value:document.getElementById('backstory').value.trim().substring(0,1024),inline:false},
-        {name:`🎯 Respuestas del Test (${quizScore}/10)`,value:ans.substring(0,1024),inline:false},
-        {name:'❓ OOC / Romper el personaje',value:document.getElementById('ooc').value.trim().substring(0,500),inline:false},
-        {name:'✅ Compromisos aceptados',value:'✔ Normas del servidor\n✔ Uso de micrófono\n✔ IC/OOC\n✔ Sin MG/PG/RDM/VDM/RK\n✔ Respeto',inline:false},
+function buildEmbeds() {
+  var color = 0x6330D5;
+  var logo = 'https://raw.githubusercontent.com/pixeled-community/logo-pixeled/main/your_server.png';
+  var nick = document.getElementById('nick').value.trim();
+  var historia = document.getElementById('historia').value.trim();
+  var historiaChunks = chunkText(historia, 1000);
+
+  var textAnswers = questionsText.map(function(q, i) {
+    return {q: q.q, a: document.getElementById('qt-' + i).value.trim()};
+  });
+
+  var abcdAnswers = questionsABCD.map(function(q, idx) {
+    var i = idx + questionsText.length;
+    var sel = document.querySelector('input[name="q' + i + '"]:checked');
+    var v = sel ? parseInt(sel.value) : -1;
+    return {q: q.q, a: v >= 0 ? q.opts[v] : 'Sin responder', correct: v === q.correct};
+  });
+
+  var payloads = [];
+
+  // Embed principal
+  payloads.push({
+    username: 'Pixeled Community',
+    avatar_url: logo,
+    embeds: [{
+      title: '📋 Nueva Postulación — ' + nick,
+      color: color,
+      thumbnail: {url: logo},
+      fields: [
+        {name: '👤 Datos Personales', value: '**Nick:** ' + nick + '\n**Discord:** ' + document.getElementById('discord').value.trim() + '\n**Edad:** ' + document.getElementById('edad').value + ' años\n**País:** ' + (document.getElementById('pais').value || 'No especificado'), inline: false},
+        {name: '🎮 Experiencia', value: '**Tiempo en RP:** ' + document.getElementById('exp').value + '\n**Servidores:** ' + (document.getElementById('servidores').value || 'Ninguno') + '\n**Baneado:** ' + document.getElementById('baneado').value + '\n**Motivo ban:** ' + (document.getElementById('ban-motivo').value.trim() || 'N/A') + '\n**Cómo nos conoció:** ' + document.getElementById('conoce').value, inline: false},
+        {name: '💬 Por qué Pixeled', value: document.getElementById('motivo').value.trim().substring(0, 500), inline: false},
+        {name: '🎭 Personaje', value: '**Nombre:** ' + document.getElementById('nombre-per').value.trim() + '\n**Rol deseado:** ' + (document.getElementById('trabajo').value || 'Sin decidir'), inline: false},
+        {name: '📖 Historia del personaje (1/' + historiaChunks.length + ')', value: historiaChunks[0], inline: false}
       ],
-      footer:{text:`Pixeled Community · ${new Date().toLocaleString('es-ES')}`},
-      timestamp:new Date().toISOString()
+      footer: {text: 'Pixeled Community · ' + new Date().toLocaleString('es-ES')},
+      timestamp: new Date().toISOString()
     }]
-  };
+  });
+
+  // Chunks adicionales de historia
+  for (var i = 1; i < historiaChunks.length; i++) {
+    payloads.push({
+      username: 'Pixeled Community',
+      avatar_url: logo,
+      embeds: [{
+        color: color,
+        fields: [{name: '📖 Historia del personaje (' + (i+1) + '/' + historiaChunks.length + ')', value: historiaChunks[i], inline: false}],
+        footer: {text: 'Pixeled Community · Continuación'}
+      }]
+    });
+  }
+
+  // Embeds de respuestas de desarrollo (4 por embed)
+  var textFields = textAnswers.map(function(t, i) {
+    return {name: '✏️ P' + (i+1) + ': ' + t.q.substring(0, 80), value: (t.a || 'Sin respuesta').substring(0, 1024), inline: false};
+  });
+  for (var i = 0; i < textFields.length; i += 4) {
+    var fields = textFields.slice(i, i + 4);
+    payloads.push({
+      username: 'Pixeled Community',
+      avatar_url: logo,
+      embeds: [{
+        color: color,
+        title: i === 0 ? '✏️ Preguntas de Desarrollo' : undefined,
+        fields: fields,
+        footer: {text: 'Pixeled Community · Desarrollo'}
+      }]
+    });
+  }
+
+  // Embed ABCD
+  var abcdLines = abcdAnswers.map(function(a, i) {
+    return (a.correct ? '✅' : '❌') + ' **P' + (i+11) + ':** ' + a.q.substring(0, 55) + '...\n→ ' + a.a;
+  }).join('\n');
+  payloads.push({
+    username: 'Pixeled Community',
+    avatar_url: logo,
+    embeds: [{
+      color: color,
+      title: '🔤 Preguntas Tipo Test',
+      fields: [{name: 'Respuestas', value: abcdLines.substring(0, 4096), inline: false}],
+      footer: {text: 'Pixeled Community · Test de normas'}
+    }]
+  });
+
+  // Embed criterio y compromisos
+  payloads.push({
+    username: 'Pixeled Community',
+    avatar_url: logo,
+    embeds: [{
+      color: color,
+      title: '💬 Preguntas de Criterio',
+      fields: [
+        {name: '❓ ¿Qué entiendes por OOC?', value: document.getElementById('ooc').value.trim() || 'Sin respuesta', inline: false},
+        {name: '🚑 Situación: Jugador inconsciente sin LSMD', value: document.getElementById('situacion1').value.trim() || 'Sin respuesta', inline: false},
+        {name: '💀 Situación: Tras recibir un PK', value: document.getElementById('situacion2').value.trim() || 'Sin respuesta', inline: false},
+        {name: '🤝 Gestión de conflicto OOC', value: document.getElementById('conflicto').value.trim() || 'Sin respuesta', inline: false},
+        {name: '⚖️ ¿Qué es el Fair Play?', value: document.getElementById('fairplay').value.trim() || 'Sin respuesta', inline: false},
+        {name: '✅ Compromisos aceptados', value: '✔ Normas del servidor\n✔ Uso de micrófono\n✔ IC/OOC\n✔ Sin MG/PG/RDM/VDM/RK\n✔ Respeto\n✔ Grabación en actos delictivos', inline: false}
+      ],
+      footer: {text: 'Pixeled Community · ' + new Date().toLocaleString('es-ES')}
+    }]
+  });
+
+  return payloads;
 }
 
-async function submitForm(){
-  document.getElementById('global-error-2').style.display='none';
-  if(!validateStep(5))return;
-  const btn=document.getElementById('btn-submit');
-  btn.disabled=true;btn.classList.add('loading');btn.textContent='ENVIANDO...';
-  try{
-    const res=await fetch(WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(buildEmbed())});
-    if(res.ok||res.status===204){
-      document.getElementById('form-wrap').style.display='none';
-      document.getElementById('success-screen').style.display='block';
-      window.scrollTo({top:0,behavior:'smooth'});
-    }else throw new Error();
-  }catch{
-    document.getElementById('global-error-2').style.display='block';
-    btn.disabled=false;btn.classList.remove('loading');btn.textContent='ENVIAR POSTULACIÓN ✓';
+async function submitForm() {
+  document.getElementById('global-error-2').style.display = 'none';
+  if (!validateStep(5)) return;
+  var btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.textContent = 'ENVIANDO...';
+  try {
+    var payloads = buildEmbeds();
+    for (var i = 0; i < payloads.length; i++) {
+      var res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(payloads[i])
+      });
+      if (!res.ok && res.status !== 204) throw new Error();
+      await new Promise(function(r) { setTimeout(r, 500); });
+    }
+    document.getElementById('form-wrap').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+    window.scrollTo({top:0, behavior:'smooth'});
+  } catch(e) {
+    document.getElementById('global-error-2').style.display = 'block';
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btn.textContent = 'ENVIAR POSTULACIÓN ✓';
   }
 }
+
 renderQuiz();
 </script>
 </body>
